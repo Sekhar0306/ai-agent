@@ -1,71 +1,76 @@
 import React from "react";
-import { Search, ChevronDown, HelpCircle } from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
+import SearchBar from "./SearchBar";
+import CategoryButtons from "./CategoryButtons";
+import JobListings from "./JobListings";
+import logo from "../assets/agent.png";
+
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center">
-          <img
-            src="/placeholder.svg?height=40&width=40"
-            alt="AIAgents Logo"
-            width={40}
-            height={40}
-            className="mr-2"
-          />
-          <span className="text-primary text-2xl font-semibold">AIAgents</span>
+    <div className="min-h-screen w-full bg-gradient-to-b from-orange-100 via-orange-200 to-peach-100">
+      
+      {/* 🔹 Navbar */}
+      <header className="w-full px-10 py-4 flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <img src={logo} alt="AI Agents Logo" width={50} height={50} className="mr-2" />
+          <span className="text-primary text-3xl font-bold">AI Agents</span>
         </div>
-        <div className="flex items-center gap-4">
-          <NavItem title="Find remote jobs">
-            <DropdownItem label="All Jobs" />
-            <DropdownItem label="Software Development" />
-            <DropdownItem label="Marketing" />
-            <DropdownItem label="Design" />
+        <div className="flex items-center space-x-4">
+          <NavItem title="Find AI Jobs">
+            <DropdownItem label="All AI Jobs" />
+            <DropdownItem label="Machine Learning" />
+            <DropdownItem label="Data Science" />
+            <DropdownItem label="AI Research" />
           </NavItem>
           <NavItem title="Resources">
-            <DropdownItem label="Remote Work Guide" />
-            <DropdownItem label="Remote Companies" />
-            <DropdownItem label="Remote Tools" />
+            <DropdownItem label="AI Career Guide" />
+            <DropdownItem label="Top AI Companies" />
+            <DropdownItem label="AI Tools & Platforms" />
           </NavItem>
-          <button className="border border-primary text-primary px-4 py-1.5 rounded-md hover:bg-primary hover:text-primary-foreground transition-colors">
+          <button className="border border-primary text-primary px-4 py-2 rounded-md hover:bg-primary hover:text-white transition">
             Log in
           </button>
-          <button className="bg-primary text-primary-foreground px-4 py-1.5 rounded-md hover:bg-primary-light transition-colors">
-            For Employers
+          <button className="bg-primary text-white px-5 py-2 rounded-md hover:bg-primary-dark transition">
+            Hire AI Talent
           </button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-10 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-          Find your dream remote job without the hassle
+      {/* 🔹 Hero Section */}
+      <section className="w-full px-10 py-10 text-center">
+        <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
+          Discover AI-powered remote job opportunities
         </h1>
-        <p className="text-primary max-w-3xl mx-auto mb-8">
-          AiAgents is where top talents go to easily access active and fully remote job opportunities from vetted tech companies.
+        <p className="text-gray-700 max-w-3xl mx-auto mb-6">
+          AI Agents connects top AI talent with cutting-edge companies offering remote roles in AI, ML, and automation.
         </p>
-        <SearchBar placeholder="Search 2,080 Remote Jobs..." />
-        <CategoryButtons categories={["Software Development", "Customer Service", "Design", "Marketing", "Sales / Business"]} />
-        <div className="flex justify-end items-center text-xs text-gray-500">
-          <span>Search by</span>
-          <img src="./assets/placeholder.svg?height=20&width=60" alt="Algolia" width={60} height={20} />
+        
+        <SearchBar placeholder="Search AI & ML jobs..." />
+
+        <CategoryButtons categories={["Machine Learning", "Data Science", "AI Research", "Automation", "Software Engineering"]} />
+        
+        <div className="flex justify-end items-center text-xs text-gray-600 mt-2">
+          <span>Search powered by</span>
+          <img src="/assets/algolia.svg" alt="Algolia" width={60} height={20} className="ml-1" />
         </div>
       </section>
 
-      {/* Job Listings Section */}
+      {/* 🔹 Job Listings */}
       <JobListings />
+      
     </div>
   );
 }
 
+/* 🔹 Navbar Items */
 function NavItem({ title, children }) {
   return (
     <div className="relative group">
-      <button className="flex items-center text-primary hover:text-primary-light font-medium">
-        {title} <ChevronDown className="ml-1 h-4 w-4" />
+      <button className="flex items-center text-gray-900 hover:text-gray-600 font-medium">
+        {title} <ChevronDown className="ml-1 h-5 w-5" />
       </button>
-      <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md p-2 mt-1 w-48 z-10">
+      <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md p-2 mt-1 w-52 z-10">
         {children}
       </div>
     </div>
@@ -74,69 +79,8 @@ function NavItem({ title, children }) {
 
 function DropdownItem({ label }) {
   return (
-    <a href="#" className="block p-2 hover:bg-gray-100 rounded">
+    <a href="#" className="block p-2 hover:bg-gray-100 rounded text-gray-700">
       {label}
     </a>
-  );
-}
-
-function SearchBar({ placeholder }) {
-  return (
-    <div className="relative max-w-3xl mx-auto mb-8">
-      <div className="flex items-center bg-white rounded-md border border-gray-300 px-3 py-2">
-        <Search className="h-5 w-5 text-gray-400 mr-2" />
-        <input type="text" placeholder={placeholder} className="w-full focus:outline-none" />
-      </div>
-    </div>
-  );
-}
-
-function CategoryButtons({ categories }) {
-  return (
-    <div className="flex flex-wrap justify-center gap-2 mb-4">
-      {categories.map((category, index) => (
-        <button key={index} className="bg-white border border-gray-300 rounded-full px-3 py-1 text-sm hover:bg-gray-100">
-          {category}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function JobListings() {
-  const jobs = [
-    { logo: "/placeholder.svg", position: "Office Assistant", company: "Coalition Technologies", category: "Marketing", salary: "$31.2k-$72.8k", location: "Worldwide", featured: true },
-    { logo: "/placeholder.svg", position: "Senior Sharepoint Developer", company: "Proxify", category: "Software Development", salary: "$50k-$80k", location: "CET +/- 3 HOURS", featured: true },
-    { logo: "/placeholder.svg", position: "Freelance Writer", company: "IAPWE", category: "Writing", salary: "$50-$75 /hour", location: "Worldwide", featured: true },
-  ];
-  return (
-    <div className="md:w-3/4 mx-auto space-y-4">
-      {jobs.map((job, index) => (
-        <JobCard key={index} {...job} />
-      ))}
-    </div>
-  );
-}
-
-function JobCard({ logo, position, company, category, salary, location, featured }) {
-  return (
-    <div className="bg-white rounded-lg p-4 relative">
-      {featured && <div className="absolute top-4 right-4 bg-secondary-light text-primary text-xs font-medium px-2 py-0.5 rounded">Featured</div>}
-      <div className="flex items-start">
-        <img src={logo} alt={company} width={40} height={40} className="rounded mr-4" />
-        <div className="flex-1">
-          <div className="flex items-center mb-2">
-            <h3 className="font-semibold text-primary">{position}</h3>
-            <span className="mx-2">•</span>
-            <span className="text-primary">{company}</span>
-          </div>
-          <div className="flex flex-wrap gap-2 mb-2">
-            <span className="bg-gray-100 text-sm px-2 py-0.5 rounded">{category}</span>
-            <span className="bg-gray-100 text-sm px-2 py-0.5 rounded">{salary}</span>
-            <span className="bg-gray-100 text-sm px-2 py-0.5 rounded">{location}</span>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
